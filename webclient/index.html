@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Xompass Predictions</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src='https://code.jquery.com/jquery-1.12.4.js'></script>
+    <script type="text/javascript" src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js'></script>
+    <script type="text/javascript" src='https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js'></script>
+    <script type="text/javascript" src='socket.io.js'></script>
+    <script src="https://maps.googleapis.com/maps/api/js?&v=3.exp&libraries=geometry,drawing,places"></script>
+    <link href="data:image/x-icon;base64,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
+AAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+</head>
+
+<body>
+    <div id="mountapp"></div>
+</body>
+<script>
+  var socket = io.connect('http://localhost:9000');
+</script>
+<script src="./dist/bundle.js" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable( {
+        columnDefs: [
+            {
+                targets: [ 0, 1, 2 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
+    } );
+} );
+</script>
+</html>
