@@ -74,14 +74,18 @@ componentDidMount(){
     // })
   // }
 }
-analyticsClick(){
+analyticsClick(e, {name}){
   this.setState({analyticsDisplay:!this.state.analyticsDisplay,
-  mlDisplay: false})
+  mlDisplay: false,
+  activeItem: name
+})
 }
-mlClick(){
+mlClick(e, {name}){
   this.setState({
     analyticsDisplay:false,
-    mlDisplay:!this.state.mlDisplay})
+    mlDisplay:!this.state.mlDisplay,
+    activeItem: name
+  })
 }
 visibilityControl1(){
   this.setState({
@@ -103,15 +107,15 @@ handleItemClick = (e, { name }) => this.setState({ activeItem: name })
       onMouseLeave={this.visibilityControl2.bind(this)} icon='labeled' vertical inverted style={{position: 'fixed', zIndex: '1', height: '100vh'}}>
         <Menu.Item name='gamepad' active={activeItem === 'gamepad'}
         onClick={this.handleItemClick}>
+        <Link to='/home'>
         <Image wrapped size='tiny'  src='../../images/xompass-cut.png'
         style = {{width: '38%'}}/>
+        </Link>
         </Menu.Item>
-
-        <Menu.Item name='puzzle' active={activeItem === 'puzzle'} onClick={this.handleItemClick}>
+        <Menu.Item name='puzzle' active={activeItem === 'puzzle'} onClick = {this.analyticsClick.bind(this)}>
           <Icon name='puzzle' />
         </Menu.Item>
-
-        <Menu.Item name='bar chart' active={activeItem === 'bar chart'} onClick={this.handleItemClick}>
+        <Menu.Item name='bar chart' active={activeItem === 'bar chart'} onClick={this.mlClick.bind(this)}>
           <Icon name='bar chart' />
         </Menu.Item>
       </Menu>
@@ -120,7 +124,6 @@ handleItemClick = (e, { name }) => this.setState({ activeItem: name })
               onMouseLeave={this.visibilityControl2.bind(this)} animation='scale down'
               style={{width:'18%'}}
                visible={this.state.visibility} icon='labeled' vertical inverted>
-
               <Menu.Item name='Home'>
               <Link to='/home'>
                <Button secondary>Home</Button>
