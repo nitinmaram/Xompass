@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment, Sidebar, Icon, Button } from 'semantic-ui-react'
-import { ToastContainer, toast, style} from 'react-toastify';
 import Cookies from 'universal-cookie';
 const cookies= new Cookies();
 var enc = new TextDecoder();
@@ -11,13 +10,6 @@ const defaultPosition = {
   lat: 27.9878,
   lng: 86.9250
 };
-
-style({
-  TOP_RIGHT: {
-    top: '5em',
-    right: '10em'
-  }
-})
 
 export default class MenuExampleVertical extends Component {
   constructor(){
@@ -89,7 +81,6 @@ export default class MenuExampleVertical extends Component {
         </Dropdown>
         </Header>
         <Button color='green' size='large' onClick={this.notify.bind(this)}>Submit</Button>
-        <ToastContainer hideProgressBar={true} newestOnTop={true}/>
       </div>
 </div>
 )

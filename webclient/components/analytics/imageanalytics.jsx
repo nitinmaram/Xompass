@@ -1,13 +1,9 @@
 import React from 'react'
 import {hashHistory} from 'react-router';
-import { Button, Form, Grid, Header, Image, Message, Segment, Card} from 'semantic-ui-react'
-import LocationPicker from 'react-location-picker';
+import { Button, Form, Grid, Header, Image, Message, Segment, Card, Loader, Dimmer} from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
 
-const defaultPosition = {
-  lat: 27.9878,
-  lng: 86.9250
-};
+
 
 export default class Greeting extends React.Component {
 
@@ -15,12 +11,11 @@ export default class Greeting extends React.Component {
     super(props);
 
     this.state = {
-      address: "Kala Pattar Ascent Trail, Khumjung 56000, Nepal",
-      position: "",
       url: '',
       urls:[{image_urls: ""}],
       results: '',
-      rData: []
+      rData: [],
+      active: false
     };
   }
   addUrls(){
@@ -49,7 +44,9 @@ export default class Greeting extends React.Component {
   }
   imageSubmission(){
     let context = this
-
+    this.setState({
+      active: true
+    })
     var image_urls = {image_urls: []}
     for (var i = 0; i < this.state.urls.length; i++) {
       image_urls.image_urls.push(this.state.urls[i].image_urls)
@@ -63,13 +60,19 @@ export default class Greeting extends React.Component {
             success: function(data) {
               context.setState({
                 results: "Results",
-                rData: JSON.parse(data)
+                rData: JSON.parse(data),
+                active: false
               })
               console.log(context.state.rData);
             }.bind(context),
             error: function(err) {
                 console.log('error occurred on AJAX');
                 console.log(err);
+                context.setState({
+                  active: false,
+                  results: "Error",
+                  rData: err
+                })
             }.bind(this)
         });
   }
@@ -100,10 +103,13 @@ export default class Greeting extends React.Component {
         </Card>
       )
     })
-
+    const { active } = this.state
     return (
 
       <div>
+          <Dimmer active={active} page>
+            <Loader>Predicting ..</Loader>
+          </Dimmer>
       <Header>
       Image Analytics
       </Header>

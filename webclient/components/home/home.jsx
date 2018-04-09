@@ -35,29 +35,29 @@ export default class FixedMenuLayout extends React.Component {
   }
   componentWillMount(){
     let context = this
-    console.log("componentWillMount");
-    $.ajax({
-            url: "http://localhost:3000/account/",
-            type: 'GET',
-            success: function(data) {
-              originalData = data
-              data.forEach((val,ind)=>{
-                console.log({id:val[0].value,name:val[1].value});
-                  accOptions.push({key: val[0].value, text:val[1].value, value:val[0].value})
-                  accMapObj[val[0].value] = val[1].value
-              })
-              context.setState({
-                getAllAccDimmer: false
-              });
-            }.bind(context),
-            error: function(err) {
-              context.setState({
-                getAllAccDimmer: false
-              });
-                console.log('error occurred on AJAX');
-                console.log(err);
-            }.bind(context)
-        });
+    // console.log("componentWillMount");
+    // $.ajax({
+    //         url: "http://localhost:3000/account/",
+    //         type: 'GET',
+    //         success: function(data) {
+    //           originalData = data
+    //           data.forEach((val,ind)=>{
+    //             console.log({id:val[0].value,name:val[1].value});
+    //               accOptions.push({key: val[0].value, text:val[1].value, value:val[0].value})
+    //               accMapObj[val[0].value] = val[1].value
+    //           })
+    //           context.setState({
+    //             getAllAccDimmer: false
+    //           });
+    //         }.bind(context),
+    //         error: function(err) {
+    //           context.setState({
+    //             getAllAccDimmer: false
+    //           });
+    //             console.log('error occurred on AJAX');
+    //             console.log(err);
+    //         }.bind(context)
+    //     });
   }
 componentDidMount(){
   console.log(cookies.get('role'));
@@ -75,12 +75,15 @@ componentDidMount(){
   // }
 }
 analyticsClick(e, {name}){
+  console.log({name});
   this.setState({analyticsDisplay:!this.state.analyticsDisplay,
   mlDisplay: false,
   activeItem: name
 })
 }
 mlClick(e, {name}){
+  console.log({name});
+  console.log(name);
   this.setState({
     analyticsDisplay:false,
     mlDisplay:!this.state.mlDisplay,
@@ -112,11 +115,15 @@ handleItemClick = (e, { name }) => this.setState({ activeItem: name })
         style = {{width: '38%'}}/>
         </Link>
         </Menu.Item>
-        <Menu.Item name='puzzle' active={activeItem === 'puzzle'} onClick = {this.analyticsClick.bind(this)}>
-          <Icon name='puzzle' />
+        <Menu.Item name='puzzle'
+          onMouseOver = {() => {this.setState({activeItem: 'puzzle' })}}
+          onClick = {this.analyticsClick.bind(this)}>
+          <Icon name='puzzle' onMouseOver = {this.analyticsClick.bind(this, 'puzzle')}/>
         </Menu.Item>
-        <Menu.Item name='bar chart' active={activeItem === 'bar chart'} onClick={this.mlClick.bind(this)}>
-          <Icon name='bar chart' />
+        <Menu.Item name='bar chart'
+        onMouseOver = {() => {this.setState({activeItem: 'bar chart'})}}
+        onClick={this.mlClick.bind(this)}>
+          <Icon name='bar chart' onMouseOver = {this.mlClick.bind(this, 'bar chart')}/>
         </Menu.Item>
       </Menu>
         <Sidebar.Pushable style={{marginLeft: '7%', marginTop: '0'}}>
@@ -129,7 +136,7 @@ handleItemClick = (e, { name }) => this.setState({ activeItem: name })
                <Button secondary>Home</Button>
                </Link>
               </Menu.Item>
-              <Menu.Item name='Data Analytics' style={{display: this.state.analyticsDisplay }}>
+              <Menu.Item name='Data Analytics' active={activeItem === 'puzzle'} style={{display: this.state.analyticsDisplay }}>
                <Button secondary onClick = {this.analyticsClick.bind(this)}>Data Analytics &nbsp; &nbsp;<Icon name={this.state.analyticsDisplay?'arrow down':'arrow right'}/></Button>
               </Menu.Item>
                 <Menu.Item name='Image Analytics' style={{display:this.state.analyticsDisplay?'':'none'}}>
@@ -137,7 +144,7 @@ handleItemClick = (e, { name }) => this.setState({ activeItem: name })
                  <Button secondary >Image Analytics</Button>
                  </Link>
                 </Menu.Item>
-                <Menu.Item name='ML' style={{display: this.state.mlDisplay }}>
+                <Menu.Item name='ML' style={{display: this.state.mlDisplay }} active={activeItem === 'bar chart'}>
                  <Button secondary onClick = {this.mlClick.bind(this)}>Machine Learning <Icon name={this.state.mlDisplay?'arrow down':'arrow right'}/></Button>
                 </Menu.Item>
                   <Menu.Item name='Predict Risk' style={{display:this.state.mlDisplay?'':'none'}}>
