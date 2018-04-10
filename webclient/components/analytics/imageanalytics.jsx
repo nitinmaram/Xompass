@@ -94,10 +94,10 @@ export default class Greeting extends React.Component {
         <Card.Content>
           <Image floated='right' size='medium' src={val.url} />
           <Card.Header>
-            Fire {parseFloat(val.fire).toFixed(2)} %
+            Fire {parseFloat(val.fire).toFixed(2)*100} %
           </Card.Header>
           <Card.Description>
-              Smoke {parseFloat(val.smoke).toFixed(2)} %
+              Smoke {parseFloat(val.smoke).toFixed(2)*100} %
           </Card.Description>
         </Card.Content>
         </Card>
