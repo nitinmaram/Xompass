@@ -54,7 +54,7 @@ export default class Greeting extends React.Component {
     image_urls.image_urls = JSON.stringify(image_urls.image_urls)
 
     $.ajax({
-            url: "https://predictfires.azurewebsites.net/json",
+            url: "http://localhost:5000/json",
             type: 'POST',
             "data": image_urls,
             success: function(data) {

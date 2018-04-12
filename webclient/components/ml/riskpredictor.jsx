@@ -49,13 +49,9 @@ export default class Greeting extends React.Component {
        }
        }
     $.ajax({
-            url: "https://ussouthcentral.services.azureml.net/workspaces/9d7ab6472efc493794d4355e21dc62b2/services/e90e85f3cbef42b7a635f70db21f07e6/execute?api-version=2.0&format=swagger",
-            type: 'POST',
-            beforeSend: function(request) {
-              request.setRequestHeader("Authorization", "Bearer uFxlfR25UwQbK/CeBgWVHAC+Xo1o7Xd4UG/vkqP62v2q08T2s5oUZPZx+K/g8El9oNyJ8uCXNc0BGKO1pFpShQ==");
-              request.setRequestHeader("Content-Type", " application/json");
-            },
-            data: inputObj,
+      url: "http://localhost:8080/stream",
+    type: 'GET',
+    data: inputObj,
             success: function(data) {
               console.log(data);
             }.bind(context),
