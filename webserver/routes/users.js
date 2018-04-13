@@ -28,7 +28,6 @@ router.get('/', function(req, res, next) {
   url:     'https://ussouthcentral.services.azureml.net/workspaces/9d7ab6472efc493794d4355e21dc62b2/services/e90e85f3cbef42b7a635f70db21f07e6/execute?api-version=2.0&format=swagger',
   body:    JSON.stringify(inputObj)
 }, function(error, response, body){
-  console.log(body,"body");
   res.send(body);
 
 	 console.log(error,"error");
